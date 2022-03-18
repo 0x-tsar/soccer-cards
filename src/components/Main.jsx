@@ -19,52 +19,34 @@ export const Container = styled.div`
 `;
 
 const Main = () => {
-  const { contractCards, setContractCards } = useContext(AuthContext);
+  const { myCards, setMyCards } = useContext(AuthContext);
 
   useEffect(() => {
     const done = async () => {
-      const { account, card3 } = await connectEthereum();
-      console.log(account);
-      console.log(card3);
+      const { account, soccerContract } = await connectEthereum();
 
-      // const ownerOf = await card3.tokenURI(0);
-      const ownerOf = await card3.ownerOf(1);
-
-      // console.log(ownerOf);
-      // console.log(card3);
-
-      const balance = Number(
-        await card3.balanceOf("0xFF8E19BE33A5B8A68bdf20a36005bF9643B5563a")
-      );
-      console.log(`contract balance: ${balance}`);
-      setContractCards([]);
+      const balance = Number(await soccerContract.balanceOf(account));
+      // console.log(`contract balance: ${balance}`);
+      setMyCards([]);
 
       for (let i = 0; i < balance; i++) {
         const tokenRealId = Number(
-          await card3.tokenOfOwnerByIndex(
-            "0xFF8E19BE33A5B8A68bdf20a36005bF9643B5563a",
-            i
-          )
+          await soccerContract.tokenOfOwnerByIndex(account, i)
         );
-        // const token = await card3.tokenByIndex(tokenRealId);
-        const tokenURI = await card3.tokenURI(tokenRealId);
+        // const token = await soccerContract.tokenByIndex(tokenRealId);
+        const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
         const { data } = await axios.get(`${tokenURI}`);
-        // console.log(data);
 
-        setContractCards((contractCards) => [...contractCards, data]);
-        // setContractCards([]);
+        setMyCards((contractCards) => [...contractCards, data]);
       }
-
-      //
     };
     done();
   }, []);
 
   return (
     <Container>
-      {console.log(contractCards)}
-      {contractCards.map((item, key) => {
+      {myCards.map((item, key) => {
         return <Card key={key} nft={item}></Card>;
       })}
     </Container>

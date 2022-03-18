@@ -1,0 +1,17 @@
+{
+  "name": "Luciano",
+  "description": "Comemoração contra o Flamengo em 2020",
+  "image": "https://ipfs.io/ipfs/QmbtHcNoEzQ58juVog1GYeY4H3jsDxDSz6RJMqBAQXLdyz",
+  "attributes": [
+    {
+      "trait_type": "Nota do jogo",
+      "value": 7,
+      "max_value": 10
+    },
+    {
+      "display_type": "boost_number", 
+      "trait_type": "Gols", 
+      "value": 2
+    }
+  ]
+}

@@ -188,7 +188,34 @@ const Card = ({ nft }) => {
         }}
         ref={ref}
       >
-        {nft.attributes === undefined ? (
+        {console.log(nft)}
+        {nft.attributes ? (
+          <div>
+            <h3>{nft.name}</h3>
+            <div>{nft.description}</div>
+            <div>
+              <br />
+              {nft.attributes[0].trait_type}: {nft.attributes[0].value}/
+              {nft.attributes[0].max_value}
+            </div>
+            <div
+              style={{
+                width: "100%",
+                backgroundColor: "rgba(0,0,0,0.1)",
+                height: "2px",
+                margin: "10px 0",
+              }}
+            ></div>
+            <h3>
+              <br />
+              {nft.attributes[1].trait_type}: {nft.attributes[1].value}
+            </h3>
+          </div>
+        ) : (
+          <>NOT</>
+        )}
+
+        {/* {nft.attributes === undefined ? (
           <></>
         ) : (
           <>
@@ -209,6 +236,7 @@ const Card = ({ nft }) => {
                 margin: "10px 0",
               }}
             ></div>
+            //
             <div>
               <br />
               {nft.attributes[1].trait_type}: {nft.attributes[1].value}/
@@ -227,6 +255,9 @@ const Card = ({ nft }) => {
               {nft.attributes[2].trait_type}: {nft.attributes[2].value}/
               {nft.attributes[2].max_value}
             </div>
+
+            //
+            //
             <div
               style={{
                 width: "100%",
@@ -241,8 +272,11 @@ const Card = ({ nft }) => {
               {nft.attributes[3].max_value}
             </div>
           </>
-        )}
+        )} */}
 
+        {/*  */}
+        {/*  */}
+        {/*  */}
         {/* <div>{nft.attributes.trait_type}</div> */}
         {/* {console.log(nft.attributes[0].trait_type)} */}
         {/* {console.log(nft.attributes)} */}
