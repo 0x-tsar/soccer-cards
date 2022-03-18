@@ -15,7 +15,7 @@ contract Soccer is ERC721URIStorage {
     Counters.Counter private _tokenIds;
 
     mapping(uint256 => address) public cardCreator;
-    mapping(uint256 => CardStruct) cards;
+    mapping(uint256 => CardStruct) public cards;
     struct CardStruct {
         uint256 id;
         uint256 createdAt;

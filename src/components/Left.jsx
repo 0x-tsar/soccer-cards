@@ -1,6 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../context/contexto";
 
 export const Container = styled.div`
   grid-area: left;
@@ -12,7 +13,6 @@ export const Container = styled.div`
 
   color: white;
   font-size: 20px;
-  font-family: monospace, "Courier New", Courier;
 
   text-align: center;
   display: flex;
@@ -26,12 +26,14 @@ export const Container = styled.div`
     height: min-content;
     margin-top: 10px;
     :hover {
-      color: #2b8000;
+      color: gray;
     }
   }
 `;
 
 const Left = () => {
+  const { setContractCards } = useContext(AuthContext);
+
   return (
     <Container>
       <Link href={"/"}>
@@ -39,9 +41,9 @@ const Left = () => {
           <div>Home</div>
         </a>
       </Link>
-      <Link href={"/mycards"}>
+      <Link href={"/market"}>
         <a>
-          <div>My Cards</div>
+          <div>Market</div>
         </a>
       </Link>
     </Container>

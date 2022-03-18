@@ -1,7 +1,7 @@
 require("dotenv").config();
 const { ethers } = require("ethers");
 const hh = require("hardhat");
-const SoccerContract = require("../artifacts/contracts/Soccer.sol/Soccer.json");
+// const SoccerContract = require("../artifacts/contracts/Soccer.sol/Soccer.json");
 
 async function main() {
   const SoccerContract = await hh.ethers.getContractFactory("Soccer");
@@ -23,19 +23,19 @@ async function main() {
 
   const tx1 = await soccerContract.mint(
     "https://gateway.pinata.cloud/ipfs/QmaAKjJKhwUgwBnNfyyEFn2uFnYrHFjQfyrfufczKpJ6gk/hernanes.json",
-    2
+    1
   );
 
   // console.log(tx1);
   const tx2 = await soccerContract.mint(
     "https://gateway.pinata.cloud/ipfs/QmaAKjJKhwUgwBnNfyyEFn2uFnYrHFjQfyrfufczKpJ6gk/luciano.json",
-    3
+    2
   );
   // console.log(tx2);
 
   const tx3 = await soccerContract.mint(
     "https://gateway.pinata.cloud/ipfs/QmaAKjJKhwUgwBnNfyyEFn2uFnYrHFjQfyrfufczKpJ6gk/reinaldo.json",
-    5
+    3
   );
   // console.log(tx3);
   console.log(`done`);

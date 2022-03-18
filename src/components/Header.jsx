@@ -13,6 +13,7 @@ export const Container = styled.div`
   top: 0;
   padding-top: 20px;
   padding-left: 25px;
+  z-index: 99;
 `;
 
 const Header = () => {

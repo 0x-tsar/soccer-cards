@@ -26,8 +26,8 @@ module.exports = {
       // gasPrice: 50000000000,
     },
   },
+
   paths: {
-    // artifacts: "../src/artifacts",
     artifacts: "./artifacts",
   },
 };

@@ -188,7 +188,7 @@ const Card = ({ nft }) => {
         }}
         ref={ref}
       >
-        {console.log(nft)}
+        {/* {console.log(nft)} */}
         {nft.attributes ? (
           <div>
             <h3>{nft.name}</h3>
