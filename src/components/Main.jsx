@@ -26,7 +26,6 @@ const Main = () => {
       const { account, soccerContract } = await connectEthereum();
 
       const balance = Number(await soccerContract.balanceOf(account));
-      // console.log(`contract balance: ${balance}`);
       setMyCards([]);
 
       for (let i = 0; i < balance; i++) {
