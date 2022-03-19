@@ -40,8 +40,9 @@ const Main = () => {
           await soccerContract.tokenOfOwnerByIndex(account, i)
         );
 
-        const token = Number(await soccerContract.tokenByIndex(tokenRealId));
-        console.log(token);
+        // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
+
+        // console.log(token);
 
         //   const balanceUser = await cards.methods.balanceOf(account).call();
         // console.log(`balance user: ${balanceUser}`);
@@ -55,7 +56,7 @@ const Main = () => {
         //   setMyCards((myCards) => [...myCards, item]);
         // }
 
-        const tokenURI = await soccerContract.tokenURI(token);
+        const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
         const { data } = await axios.get(`${tokenURI}`);
         // console.log(data);
@@ -64,14 +65,14 @@ const Main = () => {
         //THE PROBLEM IS HERE
         //THE PROBLEM IS HERE
         // let u = i + 1;
-        const cardInfo = await soccerContract.cards(token);
-        console.log(cardInfo);
+        const cardInfo = await soccerContract.cards(tokenRealId);
+        // console.log(cardInfo);
 
         const key = Object.keys(cardInfo);
         const values = Object.values(cardInfo);
 
         //concatenating more data, json data + blockchain data
-        for (let j = 5; j < 10; j++) {
+        for (let j = 5; j <= 10; j++) {
           data[key[j]] = values[j];
         }
 
@@ -86,7 +87,7 @@ const Main = () => {
     <Container>
       {myCards.map((item, key) => {
         // return <div key={key}>Q</div>;
-        return <Card key={key} nft={item}></Card>;
+        return <Card key={key} nft={item} fromPage={"main"}></Card>;
       })}
     </Container>
   );

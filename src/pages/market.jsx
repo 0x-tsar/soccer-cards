@@ -30,60 +30,92 @@ export default function Market() {
 
       const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
 
-      // function buyCardFromMarket(uint256 id) public payable {
-      //WORKING
-      // const tx = await soccerContract.buyCardFromMarket(2, {
-      //   from: account,
-      //   value: val,
-      // });
-
-      // console.log(tx);
-
       const balance = Number(
         await soccerContract.balanceOf(soccerContract.address)
       );
-      console.log(`total balance: ${balance}`);
-      console.log(soccerContract.address);
+
+      // console.log(`balance: ${balance}`);
+      // console.log(`total balance: ${balance}`);
+      // console.log(account);
+      // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
+      // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
 
       for (let i = 0; i < balance; i++) {
         const tokenRealId = Number(
           await soccerContract.tokenOfOwnerByIndex(soccerContract.address, i)
         );
-        // const token = await card3.tokenByIndex(tokenRealId);
+
+        // console.log(`tokenByIndex: ${tokenRealId}`);
+
+        // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
+        // console.log(`token: ${token}`);
+
+        //   const balanceUser = await cards.methods.balanceOf(account).call();
+        // console.log(`balance user: ${balanceUser}`);
+        // for (let i = 0; i < balanceUser; i++) {
+        //   const tokenId = await cards.methods
+        //     .tokenOfOwnerByIndex(account, i)
+        //     .call();
+        //   const token = await cards.methods.tokenByIndex(tokenId).call();
+        //   const item = await cards.methods.myCards(account, token).call();
+
+        //   setContractCards((myCards) => [...myCards, item]);
+        // }
+
         const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
         const { data } = await axios.get(`${tokenURI}`);
-        // console.log(data);
 
-        let u = i + 1;
-        const cardInfo = await soccerContract.cards(u);
+        const cardInfo = await soccerContract.cards(tokenRealId);
 
         const key = Object.keys(cardInfo);
         const values = Object.values(cardInfo);
 
         //concatenating more data, json data + blockchain data
-        for (let j = 5; j < 10; j++) {
+        for (let j = 5; j <= 10; j++) {
           data[key[j]] = values[j];
         }
 
-        //works//
-        setContractCards((contractCards) => [...contractCards, data]);
+        setContractCards((setContractCards) => [...setContractCards, data]);
       }
-
-      // second loop
-      // for (let i = 1; i < balance; i++) {
-      //   const cardInfo = await soccerContract.cards(i);
-      //   console.log(cardInfo);
-      // }
-      //
     };
+
     done();
   }, []);
+
+  // useEffect(() => {
+  //   const done = async () => {
+  //     const { account, soccerContract, signer } = await connectEthereum();
+  //     const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+  //   };
+  //   done();
+  // }, []);
+
+  const buyCard = async (itemId) => {
+    const { account, soccerContract } = await connectEthereum();
+    const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+
+    console.log(`buy card!`);
+    console.log(itemId);
+    const tx = await soccerContract.buyCardFromMarket(itemId, {
+      from: account,
+      value: val,
+    });
+
+    console.log(tx);
+  };
 
   return (
     <Container>
       {contractCards.map((item, key) => {
-        return <Card key={key} nft={item}></Card>;
+        return (
+          <Card
+            key={key}
+            nft={item}
+            buyCard={buyCard}
+            fromPage={"market"}
+          ></Card>
+        );
       })}
     </Container>
   );

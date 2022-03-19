@@ -2,13 +2,13 @@
 
 pragma solidity ^0.8.7;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
+// import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+// import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+// import "@openzeppelin/contracts/utils/Counters.sol";
 
-// import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-// import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
-// import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "../node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
 
 contract Soccer is ERC721URIStorage {
     using Counters for Counters.Counter;
@@ -98,6 +98,8 @@ contract Soccer is ERC721URIStorage {
         //operation happens here
         //after done add calculated fee
         // transferFrom(address(this), msg.sender, id);
+
+        //  PAY CREATOR HIS PART
         _transfer(address(this), msg.sender, id);
         cards[id].owner = msg.sender;
     }

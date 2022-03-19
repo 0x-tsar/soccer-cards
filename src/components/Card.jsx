@@ -2,6 +2,8 @@ import React, { useRef, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../context/contexto";
 import confetti from "canvas-confetti";
+import { connectEthereum } from "../ethereum";
+import { ethers } from "ethers";
 
 export const Container = styled.div``;
 
@@ -34,8 +36,9 @@ export const LittleWindow = styled.div`
   color: black;
   cursor: default;
   pointer-events: none;
-  padding: 10px;
+  padding: 5px;
   display: none;
+  font-size: 13px;
 
   /* flex-direction: column; */
   flex-wrap: wrap;
@@ -76,8 +79,7 @@ export const ImgBadge = styled.img`
   }
 `;
 
-const Card = ({ nft }) => {
-  // console.log(nft);
+const Card = ({ nft, buyCard, fromPage }) => {
   const ref = useRef();
 
   function confetis() {
@@ -118,6 +120,13 @@ const Card = ({ nft }) => {
   return (
     <Container>
       <CardHolder
+        onClick={async () => {
+          if (fromPage === "market") {
+            buyCard(Number(nft.id));
+          } else if (fromPage === "main") {
+            // add functionalities later
+          }
+        }}
         // onClick={async () => {
         //   if (which === "home") {
         //     console.log("home..");
@@ -188,6 +197,7 @@ const Card = ({ nft }) => {
       <LittleWindow
         style={{
           color: "black",
+          padding: "0px auto",
         }}
         ref={ref}
       >
@@ -222,7 +232,9 @@ const Card = ({ nft }) => {
             ></div>
             <p>
               <br />
-              Created At: {Number(nft.createdAt)}
+              Created At:{" "}
+              {new Date(Number(nft.createdAt) * 1000).toDateString()}
+              {/* Create at: {new Date(Number(card.timestamp) * 1000).toTimeString()} */}
             </p>
             <p>
               <br />
@@ -235,6 +247,10 @@ const Card = ({ nft }) => {
             <p>
               <br />
               owner: {nft.owner}
+            </p>
+            <p>
+              <br />
+              Total Amount: {Number(nft.totalAmount)}
             </p>
           </div>
         ) : (
