@@ -24,7 +24,7 @@ export const LittleWindow = styled.div`
   width: auto;
 
   /* width: fit-content; */
-  /* max-width: 400px; */
+  max-width: 400px;
   height: auto;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -77,7 +77,7 @@ export const ImgBadge = styled.img`
 `;
 
 const Card = ({ nft }) => {
-  console.log(nft);
+  // console.log(nft);
   const ref = useRef();
 
   function confetis() {

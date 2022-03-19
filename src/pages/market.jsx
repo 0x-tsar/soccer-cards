@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ethers } from "ethers";
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
@@ -25,7 +26,18 @@ export default function Market() {
   useEffect(() => {
     const done = async () => {
       setContractCards([]);
-      const { account, soccerContract } = await connectEthereum();
+      const { account, soccerContract, signer } = await connectEthereum();
+
+      const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+
+      // function buyCardFromMarket(uint256 id) public payable {
+      //WORKING
+      // const tx = await soccerContract.buyCardFromMarket(7, {
+      //   from: account,
+      //   value: val,
+      // });
+
+      // console.log(tx);
 
       const balance = Number(
         await soccerContract.balanceOf(soccerContract.address)
@@ -68,16 +80,8 @@ export default function Market() {
     done();
   }, []);
 
-  // useEffect(() => {
-  //   plusData.map((item, key) => {
-  //     console.log(`key: ${key}`);
-  //     console.log(`item: ${item}`);
-  //   });
-  // }, [plusData]);
-
   return (
     <Container>
-      {/* {console.log(contractCards)} */}
       {contractCards.map((item, key) => {
         return <Card key={key} nft={item}></Card>;
       })}

@@ -10,12 +10,12 @@ export const connectEthereum = async () => {
   const signer = provider.getSigner();
 
   const soccerContract = new ethers.Contract(
-    "0xFca0ef65bD3C02af5813bEe4267c1Baa6C38adF0",
+    "0x5f4709Ae93ccda191fc7d7DE7dC4BBedAeF4aF30",
     Soccer.abi,
     signer
   );
 
   const balance = await provider.getBalance(account);
 
-  return { provider, balance, account, soccerContract };
+  return { provider, balance, account, soccerContract, signer };
 };

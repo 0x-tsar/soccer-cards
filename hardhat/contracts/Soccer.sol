@@ -14,6 +14,13 @@ contract Soccer is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    event cardSold(
+        address indexed from,
+        address indexed to,
+        uint256 indexed id,
+        uint256 price
+    );
+
     mapping(uint256 => address) public cardCreator;
     mapping(uint256 => CardStruct) public cards;
     struct CardStruct {
@@ -22,6 +29,7 @@ contract Soccer is ERC721URIStorage {
         address owner;
         address creator;
         uint256 totalAmount;
+        uint256 price;
     }
 
     address payable immutable owner;
@@ -32,7 +40,11 @@ contract Soccer is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    function mint(string memory tokenURI, uint256 amount) public {
+    function mint(
+        string memory tokenURI,
+        uint256 amount,
+        uint256 price
+    ) public {
         require(
             owner == msg.sender || admins[msg.sender],
             "You are not allowed to mint a card, because you are not an admin or the owner"
@@ -53,7 +65,8 @@ contract Soccer is ERC721URIStorage {
                 createdAt: block.timestamp,
                 owner: address(this),
                 creator: msg.sender,
-                totalAmount: amount
+                totalAmount: amount,
+                price: price
             });
 
             cards[newItemId] = card;
@@ -67,7 +80,27 @@ contract Soccer is ERC721URIStorage {
         admins[addr] = true;
     }
 
-    function buyCardFromMarket(uint256 id) public payable {}
+    function buyCardFromMarket(uint256 id) public payable {
+        // if the market is the owner, than it's for sale
+        // check if im not the owner
+        // check if the contract is the owner
+        // check if my paying is the same as the asked for the card
+        //emit event
+        require(
+            cards[id].owner == address(this),
+            "The market does not own this card"
+        );
+
+        require(cards[id].owner != msg.sender, "You own this card!");
+        require(cards[id].price == msg.value, "Wrong price!");
+
+        emit cardSold(address(this), msg.sender, cards[id].id, cards[id].price);
+        //operation happens here
+        //after done add calculated fee
+        // transferFrom(address(this), msg.sender, id);
+        _transfer(address(this), msg.sender, id);
+        cards[id].owner = msg.sender;
+    }
 
     //100 basis points = 1.00 pct
     function calculateFeeAdmin(uint256 amount) private view returns (uint256) {
