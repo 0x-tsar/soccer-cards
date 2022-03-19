@@ -20,6 +20,7 @@ export const Container = styled.div`
 
 export default function Market() {
   const { contractCards, setContractCards } = useContext(AuthContext);
+  const [plusData, setPlusData] = useState([]);
 
   useEffect(() => {
     const done = async () => {
@@ -40,25 +41,43 @@ export default function Market() {
         const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
         const { data } = await axios.get(`${tokenURI}`);
-        console.log(data);
+        // console.log(data);
 
+        let u = i + 1;
+        const cardInfo = await soccerContract.cards(u);
+
+        const key = Object.keys(cardInfo);
+        const values = Object.values(cardInfo);
+
+        //concatenating more data, json data + blockchain data
+        for (let j = 5; j < 10; j++) {
+          data[key[j]] = values[j];
+        }
+
+        //works//
         setContractCards((contractCards) => [...contractCards, data]);
-        // setCards((cards) => ({ ...cards, tokenURI }));
-        // setCards((cards) => [...cards, tokenURI]);
       }
 
       // second loop
-      for (let i = 1; i < balance; i++) {
-        const cardInfo = await soccerContract.cards(i);
-        console.log(cardInfo);
-      }
+      // for (let i = 1; i < balance; i++) {
+      //   const cardInfo = await soccerContract.cards(i);
+      //   console.log(cardInfo);
+      // }
       //
     };
     done();
   }, []);
 
+  // useEffect(() => {
+  //   plusData.map((item, key) => {
+  //     console.log(`key: ${key}`);
+  //     console.log(`item: ${item}`);
+  //   });
+  // }, [plusData]);
+
   return (
     <Container>
+      {/* {console.log(contractCards)} */}
       {contractCards.map((item, key) => {
         return <Card key={key} nft={item}></Card>;
       })}

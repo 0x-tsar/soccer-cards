@@ -22,6 +22,9 @@ export const CardHolder = styled.div`
 
 export const LittleWindow = styled.div`
   width: auto;
+
+  /* width: fit-content; */
+  /* max-width: 400px; */
   height: auto;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -38,7 +41,6 @@ export const LittleWindow = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  max-width: 300px;
 
   div {
     justify-self: center;
@@ -75,6 +77,7 @@ export const ImgBadge = styled.img`
 `;
 
 const Card = ({ nft }) => {
+  console.log(nft);
   const ref = useRef();
 
   function confetis() {
@@ -188,7 +191,6 @@ const Card = ({ nft }) => {
         }}
         ref={ref}
       >
-        {/* {console.log(nft)} */}
         {nft.attributes ? (
           <div>
             <h3>{nft.name}</h3>
@@ -210,6 +212,30 @@ const Card = ({ nft }) => {
               <br />
               {nft.attributes[1].trait_type}: {nft.attributes[1].value}
             </h3>
+            <div
+              style={{
+                width: "100%",
+                backgroundColor: "rgba(0,0,0,0.1)",
+                height: "2px",
+                margin: "10px 0",
+              }}
+            ></div>
+            <p>
+              <br />
+              Created At: {Number(nft.createdAt)}
+            </p>
+            <p>
+              <br />
+              Creator: {nft.creator}
+            </p>
+            <p>
+              <br />
+              id: {Number(nft.id)}
+            </p>
+            <p>
+              <br />
+              owner: {nft.owner}
+            </p>
           </div>
         ) : (
           <>NOT</>
