@@ -32,7 +32,7 @@ export default function Market() {
 
       // function buyCardFromMarket(uint256 id) public payable {
       //WORKING
-      // const tx = await soccerContract.buyCardFromMarket(7, {
+      // const tx = await soccerContract.buyCardFromMarket(2, {
       //   from: account,
       //   value: val,
       // });
