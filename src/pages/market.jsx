@@ -26,7 +26,7 @@ export default function Market() {
   useEffect(() => {
     const done = async () => {
       setContractCards([]);
-      const { account, soccerContract, signer } = await connectEthereum();
+      const { account, soccerContract } = await connectEthereum();
 
       const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
 

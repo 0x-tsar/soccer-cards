@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { useEffect, useState } from "react";
 import Soccer from "./artifacts/contracts/Soccer.sol/Soccer.json";
 
 export const connectEthereum = async () => {
