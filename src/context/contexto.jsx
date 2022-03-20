@@ -23,7 +23,18 @@ export const AuthProvider = ({ children }) => {
         console.log(`ev called!`);
         window.location.reload();
       });
+
+      //on chain changed
+      ethereum.on("chainChanged", (_chainId) => window.location.reload());
+
+      //on accounts changed
+      ethereum.on("accountsChanged", (accounts) => {
+        // Handle the new accounts, or lack thereof.
+        // "accounts" will always be an array, but it can be empty.
+        window.location.reload();
+      });
     };
+
     done();
   }, []);
 

@@ -11,10 +11,15 @@ export const connectEthereum = async () => {
   const signer = provider.getSigner();
 
   const soccerContract = new ethers.Contract(
-    "0xBfC2570dE08ab45614252e9863548DFBcC499454",
+    "0xd2a70AE3B0bb0ba7cEF5C095Fe46cF5eE1935451",
     Soccer.abi,
     signer
   );
+
+  //value paid 0.0000001
+  // %5 percent of value paid goes to the card creator
+  // 4746366562936166654
+  // 4746366567936166654
 
   const balance = await provider.getBalance(account);
 
