@@ -20,68 +20,68 @@ export const Container = styled.div`
 `;
 
 export default function Market() {
-  const { contractCards, setContractCards } = useContext(AuthContext);
-  const [plusData, setPlusData] = useState([]);
+  const { contractCards, setContractCards, event } = useContext(AuthContext);
+  // const [plusData, setPlusData] = useState([]);
 
   useEffect(() => {
-    const done = async () => {
-      setContractCards([]);
-      const { account, soccerContract } = await connectEthereum();
+    loadData();
+  }, [event]);
 
-      const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+  const loadData = async () => {
+    setContractCards([]);
+    const { account, soccerContract } = await connectEthereum();
 
-      const balance = Number(
-        await soccerContract.balanceOf(soccerContract.address)
+    const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+
+    const balance = Number(
+      await soccerContract.balanceOf(soccerContract.address)
+    );
+
+    // console.log(`balance: ${balance}`);
+    // console.log(`total balance: ${balance}`);
+    // console.log(account);
+    // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
+    // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
+
+    for (let i = 0; i < balance; i++) {
+      const tokenRealId = Number(
+        await soccerContract.tokenOfOwnerByIndex(soccerContract.address, i)
       );
 
-      // console.log(`balance: ${balance}`);
-      // console.log(`total balance: ${balance}`);
-      // console.log(account);
-      // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-      // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
+      // console.log(`tokenByIndex: ${tokenRealId}`);
 
-      for (let i = 0; i < balance; i++) {
-        const tokenRealId = Number(
-          await soccerContract.tokenOfOwnerByIndex(soccerContract.address, i)
-        );
+      // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
+      // console.log(`token: ${token}`);
 
-        // console.log(`tokenByIndex: ${tokenRealId}`);
+      //   const balanceUser = await cards.methods.balanceOf(account).call();
+      // console.log(`balance user: ${balanceUser}`);
+      // for (let i = 0; i < balanceUser; i++) {
+      //   const tokenId = await cards.methods
+      //     .tokenOfOwnerByIndex(account, i)
+      //     .call();
+      //   const token = await cards.methods.tokenByIndex(tokenId).call();
+      //   const item = await cards.methods.myCards(account, token).call();
 
-        // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
-        // console.log(`token: ${token}`);
+      //   setContractCards((myCards) => [...myCards, item]);
+      // }
 
-        //   const balanceUser = await cards.methods.balanceOf(account).call();
-        // console.log(`balance user: ${balanceUser}`);
-        // for (let i = 0; i < balanceUser; i++) {
-        //   const tokenId = await cards.methods
-        //     .tokenOfOwnerByIndex(account, i)
-        //     .call();
-        //   const token = await cards.methods.tokenByIndex(tokenId).call();
-        //   const item = await cards.methods.myCards(account, token).call();
+      const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
-        //   setContractCards((myCards) => [...myCards, item]);
-        // }
+      const { data } = await axios.get(`${tokenURI}`);
 
-        const tokenURI = await soccerContract.tokenURI(tokenRealId);
+      const cardInfo = await soccerContract.cards(tokenRealId);
 
-        const { data } = await axios.get(`${tokenURI}`);
+      const key = Object.keys(cardInfo);
+      const values = Object.values(cardInfo);
 
-        const cardInfo = await soccerContract.cards(tokenRealId);
-
-        const key = Object.keys(cardInfo);
-        const values = Object.values(cardInfo);
-
-        //concatenating more data, json data + blockchain data
-        for (let j = 6; j <= 11; j++) {
-          data[key[j]] = values[j];
-        }
-
-        setContractCards((setContractCards) => [...setContractCards, data]);
+      //concatenating more data, json data + blockchain data
+      for (let j = 6; j <= 11; j++) {
+        data[key[j]] = values[j];
       }
-    };
 
-    done();
-  }, []);
+      setContractCards((setContractCards) => [...setContractCards, data]);
+    }
+  };
 
   // useEffect(() => {
   //   const done = async () => {

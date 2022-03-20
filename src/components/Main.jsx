@@ -20,63 +20,63 @@ export const Container = styled.div`
 `;
 
 const Main = () => {
-  const { myCards, setMyCards } = useContext(AuthContext);
+  const { myCards, setMyCards, event } = useContext(AuthContext);
 
   useEffect(() => {
-    const done = async () => {
-      setMyCards([]);
-      const { account, soccerContract, signer } = await connectEthereum();
+    loadData();
+  }, [event]);
 
-      const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
+  const loadData = async () => {
+    setMyCards([]);
+    const { account, soccerContract, signer } = await connectEthereum();
 
-      const balance = Number(await soccerContract.balanceOf(account));
-      // console.log(`total balance: ${balance}`);
-      // console.log(account);
-      // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-      // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
+    const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
 
-      for (let i = 0; i < balance; i++) {
-        const tokenRealId = Number(
-          await soccerContract.tokenOfOwnerByIndex(account, i)
-        );
+    const balance = Number(await soccerContract.balanceOf(account));
+    // console.log(`total balance: ${balance}`);
+    // console.log(account);
+    // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
+    // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
 
-        // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
+    for (let i = 0; i < balance; i++) {
+      const tokenRealId = Number(
+        await soccerContract.tokenOfOwnerByIndex(account, i)
+      );
 
-        // console.log(token);
+      // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
 
-        //   const balanceUser = await cards.methods.balanceOf(account).call();
-        // console.log(`balance user: ${balanceUser}`);
-        // for (let i = 0; i < balanceUser; i++) {
-        //   const tokenId = await cards.methods
-        //     .tokenOfOwnerByIndex(account, i)
-        //     .call();
-        //   const token = await cards.methods.tokenByIndex(tokenId).call();
-        //   const item = await cards.methods.myCards(account, token).call();
+      // console.log(token);
 
-        //   setMyCards((myCards) => [...myCards, item]);
-        // }
+      //   const balanceUser = await cards.methods.balanceOf(account).call();
+      // console.log(`balance user: ${balanceUser}`);
+      // for (let i = 0; i < balanceUser; i++) {
+      //   const tokenId = await cards.methods
+      //     .tokenOfOwnerByIndex(account, i)
+      //     .call();
+      //   const token = await cards.methods.tokenByIndex(tokenId).call();
+      //   const item = await cards.methods.myCards(account, token).call();
 
-        const tokenURI = await soccerContract.tokenURI(tokenRealId);
+      //   setMyCards((myCards) => [...myCards, item]);
+      // }
 
-        const { data } = await axios.get(`${tokenURI}`);
+      const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
-        const cardInfo = await soccerContract.cards(tokenRealId);
-        // console.log(cardInfo);
+      const { data } = await axios.get(`${tokenURI}`);
 
-        const key = Object.keys(cardInfo);
-        const values = Object.values(cardInfo);
+      const cardInfo = await soccerContract.cards(tokenRealId);
+      // console.log(cardInfo);
 
-        //concatenating more data, json data + blockchain data
-        for (let j = 6; j <= 11; j++) {
-          data[key[j]] = values[j];
-        }
+      const key = Object.keys(cardInfo);
+      const values = Object.values(cardInfo);
 
-        setMyCards((setMyCards) => [...setMyCards, data]);
+      //concatenating more data, json data + blockchain data
+      for (let j = 6; j <= 11; j++) {
+        data[key[j]] = values[j];
       }
-    };
 
-    done();
-  }, []);
+      setMyCards((setMyCards) => [...setMyCards, data]);
+    }
+  };
 
   return (
     <Container>

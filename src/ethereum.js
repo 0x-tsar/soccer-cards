@@ -18,8 +18,9 @@ export const connectEthereum = async () => {
 
   //value paid 0.0000001
   // %5 percent of value paid goes to the card creator
-  // 4746366562936166654
-  // 4746366567936166654
+  // result 5.0E-9 to the creator === 0.000000005
+  // 4746366562936166654 before
+  // 4746366567936166654 after
 
   const balance = await provider.getBalance(account);
 

@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [contractCards, setContractCards] = useState([]);
   const [accountBalance, setAccountBalance] = useState("0");
   const [currentAccount, setCurrentAccount] = useState("0x0");
+  const [event, setEvent] = useState(false);
 
   useEffect(() => {
     const done = async () => {
@@ -19,9 +20,9 @@ export const AuthProvider = ({ children }) => {
       setAccountBalance(Number(balance));
 
       soccerContract.on("cardSold", async (data) => {
-        console.log(data);
-        console.log(`ev called!`);
-        window.location.reload();
+        //RELOAD ALL CARDS
+        setEvent(!event);
+        // location.reload();
       });
 
       //on chain changed
@@ -49,6 +50,7 @@ export const AuthProvider = ({ children }) => {
         setAccountBalance,
         currentAccount,
         setCurrentAccount,
+        event,
       }}
     >
       {children}
