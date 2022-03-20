@@ -95,14 +95,10 @@ contract Soccer is ERC721URIStorage {
         require(cards[id].price == msg.value, "Wrong price!");
 
         emit cardSold(address(this), msg.sender, cards[id].id, cards[id].price);
-        //operation happens here
-        //after done add calculated fee
-        // transferFrom(address(this), msg.sender, id);
 
         //  PAY CREATOR HIS PART
         uint256 creatorFee = calculateFeeAdmin(msg.value);
-        //ERROR IS HERE
-        payable(cards[id].creator).transfer(msg.value);
+        payable(cards[id].creator).transfer(creatorFee);
 
         _transfer(address(this), msg.sender, id);
         cards[id].owner = payable(msg.sender);
@@ -113,9 +109,6 @@ contract Soccer is ERC721URIStorage {
         require((amount / 10000) * 10000 == amount, "too small");
         return (amount * CONTRACT_FEE) / 10000;
     }
-
-    // check funds only admin?
-    //retrieve funds only admin
 
     function checkFunds() public view onlyOwner returns (uint256) {
         //setting a redundancy here for security
