@@ -27,11 +27,11 @@ async function main() {
 
   const tx1 = await soccerContract.mint(
     "https://gateway.pinata.cloud/ipfs/QmaAKjJKhwUgwBnNfyyEFn2uFnYrHFjQfyrfufczKpJ6gk/hernanes.json",
-    2,
+    4,
     Number(value)
   );
 
-  console.log(tx1);
+  // console.log(tx1);
 
   const tx2 = await soccerContract.mint(
     "https://gateway.pinata.cloud/ipfs/QmaAKjJKhwUgwBnNfyyEFn2uFnYrHFjQfyrfufczKpJ6gk/luciano.json",

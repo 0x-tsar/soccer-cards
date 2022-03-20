@@ -59,12 +59,7 @@ const Main = () => {
         const tokenURI = await soccerContract.tokenURI(tokenRealId);
 
         const { data } = await axios.get(`${tokenURI}`);
-        // console.log(data);
 
-        //THE PROBLEM IS HERE
-        //THE PROBLEM IS HERE
-        //THE PROBLEM IS HERE
-        // let u = i + 1;
         const cardInfo = await soccerContract.cards(tokenRealId);
         // console.log(cardInfo);
 
@@ -72,7 +67,7 @@ const Main = () => {
         const values = Object.values(cardInfo);
 
         //concatenating more data, json data + blockchain data
-        for (let j = 5; j <= 10; j++) {
+        for (let j = 6; j <= 11; j++) {
           data[key[j]] = values[j];
         }
 

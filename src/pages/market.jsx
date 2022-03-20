@@ -72,7 +72,7 @@ export default function Market() {
         const values = Object.values(cardInfo);
 
         //concatenating more data, json data + blockchain data
-        for (let j = 5; j <= 10; j++) {
+        for (let j = 6; j <= 11; j++) {
           data[key[j]] = values[j];
         }
 

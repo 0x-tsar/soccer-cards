@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
 
       setAccountBalance(Number(balance));
 
-      soccerContract.on("cardSold", (ev) => {
-        console.log(ev);
+      soccerContract.on("cardSold", async (data) => {
+        console.log(data);
         console.log(`ev called!`);
         window.location.reload();
       });

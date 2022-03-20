@@ -250,6 +250,11 @@ const Card = ({ nft, buyCard, fromPage }) => {
             </p>
             <p>
               <br />
+              {/* {console.log(nft)} */}
+              price: {String(nft.price)} WEIS
+            </p>
+            <p>
+              <br />
               Total Amount: {Number(nft.totalAmount)}
             </p>
           </div>

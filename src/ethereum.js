@@ -11,7 +11,7 @@ export const connectEthereum = async () => {
   const signer = provider.getSigner();
 
   const soccerContract = new ethers.Contract(
-    "0x7d2DF792509A2D9f9ef9A247924FDd288D156810",
+    "0xBfC2570dE08ab45614252e9863548DFBcC499454",
     Soccer.abi,
     signer
   );
