@@ -16,7 +16,6 @@ export const connectEthereum = async () => {
     signer
   );
 
-  //
   //value paid 0.0000001
   // %5 percent of value paid goes to the card creator
   // result 5.0E-9 to the creator === 0.000000005
