@@ -28,15 +28,11 @@ const Main = () => {
 
   const loadData = async () => {
     setMyCards([]);
-    const { account, soccerContract, signer } = await connectEthereum();
+    const { account, soccerContract, signer, provider } =
+      await connectEthereum();
 
     const val = Number(ethers.utils.parseUnits("0.0000001", "ether"));
-
     const balance = Number(await soccerContract.balanceOf(account));
-    // console.log(`total balance: ${balance}`);
-    // console.log(account);
-    // function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-    // function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
 
     for (let i = 0; i < balance; i++) {
       const tokenRealId = Number(
@@ -44,8 +40,6 @@ const Main = () => {
       );
 
       // const token = Number(await soccerContract.tokenByIndex(tokenRealId));
-
-      // console.log(token);
 
       //   const balanceUser = await cards.methods.balanceOf(account).call();
       // console.log(`balance user: ${balanceUser}`);
@@ -64,7 +58,6 @@ const Main = () => {
       const { data } = await axios.get(`${tokenURI}`);
 
       const cardInfo = await soccerContract.cards(tokenRealId);
-      // console.log(cardInfo);
 
       const key = Object.keys(cardInfo);
       const values = Object.values(cardInfo);

@@ -7,6 +7,22 @@ export const connectEthereum = async () => {
     method: "eth_requestAccounts",
   });
 
+  const chainId = await window.ethereum.request({
+    method: "eth_chainId",
+  });
+
+  //implement this function later to check network
+  // if (Number(chainId !== 80001)) {
+  //   return {
+  //     provider: null,
+  //     balance: null,
+  //     account: null,
+  //     soccerContract: null,
+  //     signer: null,
+  //   };
+
+  // }
+
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
 

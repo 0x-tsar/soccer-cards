@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
       const { account, soccerContract, provider } = await connectEthereum();
 
       const balance = await provider.getBalance(account);
-
       setAccountBalance(Number(balance));
 
       soccerContract.on("cardSold", async (data) => {
